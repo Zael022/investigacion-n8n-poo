@@ -148,5 +148,8 @@ export class ClienteN8n {
 //   export const n8n = new ClienteN8n();
 // ---------------------------------------------------------------------------
 import { ServidorSimulado } from '../simulacion/ServidorSimulado.js';
+import { ServidorConN8n } from '../simulacion/ServidorConN8n.js';
 
-export const n8n = new ServidorSimulado();
+// "npm run dev"     -> todo simulado en el navegador
+// "npm run dev:n8n" -> registrar facturas y el chat los hace el AI Agent de n8n (Groq)
+export const n8n = import.meta.env.VITE_USAR_N8N === 'true' ? new ServidorConN8n() : new ServidorSimulado();

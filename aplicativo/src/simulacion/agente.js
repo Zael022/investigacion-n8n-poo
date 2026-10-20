@@ -75,10 +75,18 @@ export class AgenteOrquestadorSimulado {
   }
 
   registrarFactura(texto) {
-    const pasos = [];
     const { datos, faltan } = AgenteOrquestadorSimulado.extraerDatos(texto);
     if (faltan.length) {
-      return { mensaje: `No pude leer estos datos de la factura: ${faltan.join(', ')}. Revisá que el PDF tenga texto o pegá los datos manualmente.`, facturaId: null, pasos };
+      return { mensaje: `No pude leer estos datos de la factura: ${faltan.join(', ')}. Revisá que el PDF tenga texto o pegá los datos manualmente.`, facturaId: null, pasos: [] };
+    }
+    return this.registrarDesdeDatos(datos);
+  }
+
+  /** Ejecuta los métodos de registro con datos ya extraídos (por reglas o por el agente de IA de n8n). */
+  registrarDesdeDatos(datos, pasos = []) {
+    const faltan = ['emisor', 'numero', 'fechaEmision', 'subtotal', 'total'].filter((k) => datos[k] === null || datos[k] === undefined || datos[k] === '');
+    if (faltan.length) {
+      return { mensaje: `Faltan datos de la factura: ${faltan.join(', ')}.`, facturaId: null, pasos };
     }
 
     // 1. Buscar proveedor (por cédula; si no hay, por nombre)

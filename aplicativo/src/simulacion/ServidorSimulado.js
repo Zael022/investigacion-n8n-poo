@@ -29,6 +29,9 @@ export class ServidorSimulado {
   }
 
   get esSimulado() { return true; }
+  /** Acceso para las subclases (ServidorConN8n) */
+  get agente() { return this.#agente; }
+  get servicioFacturas() { return this.#facturas; }
   get sessionId() { return this.#sessionId; }
   nuevaConversacion() { this.#sessionId = crypto.randomUUID(); return this.#sessionId; }
 

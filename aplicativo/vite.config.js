@@ -2,9 +2,20 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 
-// Versión con backend simulado: no necesita proxy ni variables de entorno.
-// Cuando exista el backend real en n8n, aquí se agrega el proxy hacia sus webhooks.
+// El navegador llama a /api/... y Vite lo reenvía a los webhooks de n8n (http://localhost:5678/webhook/...).
+// Así no hay problemas de CORS. En modo simulado no se usa.
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  server: { port: 5173 },
+  server: {
+    port: 5173,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5678',
+        changeOrigin: true,
+        rewrite: (p) => p.replace(/^\/api/, '/webhook'),
+        timeout: 120000,
+        proxyTimeout: 120000,
+      },
+    },
+  },
 });

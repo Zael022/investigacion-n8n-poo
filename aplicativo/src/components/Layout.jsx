@@ -46,11 +46,19 @@ export default function Layout() {
         </nav>
 
         <div className="mx-5 mt-8 hidden space-y-3 md:block">
-          <div className="rounded-xl border border-ambar/40 bg-ambar-claro p-4 text-xs leading-relaxed text-tinta-2">
-            <p className="mb-1 font-semibold text-ambar">Modo demostración</p>
-            El backend está <b>simulado en el navegador</b>: los datos se guardan solo en este equipo y el
-            agente usa reglas fijas, no un modelo de IA real.
-          </div>
+          {n8n.esSimulado ? (
+            <div className="rounded-xl border border-ambar/40 bg-ambar-claro p-4 text-xs leading-relaxed text-tinta-2">
+              <p className="mb-1 font-semibold text-ambar">Modo demostración</p>
+              El backend está <b>simulado en el navegador</b>: los datos se guardan solo en este equipo y el
+              agente usa reglas fijas, no un modelo de IA real.
+            </div>
+          ) : (
+            <div className="rounded-xl border border-pino/40 bg-pino-claro p-4 text-xs leading-relaxed text-tinta-2">
+              <p className="mb-1 font-semibold text-pino">Conectado a n8n</p>
+              Registrar facturas y el chat los hace el <b>AI Agent de n8n con Groq</b>. Los datos se guardan
+              en el navegador (la base de datos es la siguiente etapa).
+            </div>
+          )}
           {confirmando ? (
             <div className="rounded-xl border border-linea bg-papel p-3 text-xs">
               <p className="mb-2 text-tinta-2">¿Borrar los cambios y volver a los datos de ejemplo?</p>
@@ -67,8 +75,8 @@ export default function Layout() {
         </div>
       </aside>
       <main className="mx-auto w-full max-w-6xl px-4 py-6 md:px-8 md:py-8">
-        <p className="mb-4 rounded-lg bg-ambar-claro px-3 py-2 text-xs text-ambar md:hidden">
-          Modo demostración: backend simulado en el navegador.
+        <p className={`mb-4 rounded-lg px-3 py-2 text-xs md:hidden ${n8n.esSimulado ? 'bg-ambar-claro text-ambar' : 'bg-pino-claro text-pino'}`}>
+          {n8n.esSimulado ? 'Modo demostración: backend simulado en el navegador.' : 'Conectado al agente de IA de n8n (Groq).'}
         </p>
         <Outlet />
       </main>

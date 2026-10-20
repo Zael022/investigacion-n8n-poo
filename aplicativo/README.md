@@ -24,6 +24,24 @@ npm run dev
 
 Abrí http://localhost:5173 y probá con los PDF de la carpeta [`../facturas-ejemplo`](../facturas-ejemplo).
 
+## Modo con el agente de IA de n8n (Groq)
+
+En este modo, **registrar facturas y el chat los hace el AI Agent de n8n** con Groq. El agente usa dos herramientas Code Tool con clases JavaScript: `validar_factura` y `calcular_vencimiento`. Los datos se siguen guardando en el navegador.
+
+1. Iniciá n8n: `npx n8n` y abrí http://localhost:5678
+2. En n8n: **Import from File** → `n8n/agente-facturas.json` (carpeta `n8n` en la raíz del repositorio).
+3. Abrí el nodo **Groq Chat Model** → *Credential* → *Create new* → pegá tu API key de Groq.
+4. Guardá y hacé clic en **Publish**.
+5. En otra terminal:
+   ```bash
+   cd aplicativo
+   npm install
+   npm run dev:n8n
+   ```
+6. Abrí http://localhost:5173. El panel lateral debe decir **"Conectado a n8n"**.
+
+`npm run dev` (sin `:n8n`) usa el modo simulado, sin n8n.
+
 ## Pantallas
 
 | Pantalla | Qué hace |
@@ -73,4 +91,6 @@ En `src/api/n8nClient.js` se cambia `new ServidorSimulado()` por `new ClienteN8n
 
 ## Qué se probó
 
-Se probó en un navegador automatizado (Chromium): carga de las 6 facturas de ejemplo y de una duplicada, preguntas en el chat, aprobación de una factura, marcar una factura como pagada, persistencia al recargar la página y vista en ancho de teléfono. No se probó con n8n ni con un modelo de IA real, porque esta versión no los usa.
+Modo simulado: se probó en un navegador automatizado (Chromium): carga de las 6 facturas de ejemplo y de una duplicada, preguntas en el chat, aprobación de una factura, marcar una factura como pagada, persistencia al recargar la página y vista en ancho de teléfono. No se probó con n8n ni con un modelo de IA real, porque esta versión no los usa.
+
+Modo n8n: la conexión del front end se probó contra un servidor de prueba que imita la respuesta de n8n. **El workflow con Groq real no se pudo probar desde el entorno de desarrollo**; se prueba en la computadora donde corre n8n.
