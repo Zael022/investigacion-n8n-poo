@@ -11,6 +11,7 @@ Autor: Rossman Doan Rivera Cano · Profesor: Steven Ledezma · Octubre de 2026.
 | [`investigacion.md`](investigacion.md) | Documento de investigación completo (se lee directamente en GitHub). |
 | [`investigacion.pdf`](investigacion.pdf) | Versión en PDF con formato APA 7. |
 | [`facturas-ejemplo/`](facturas-ejemplo/) | Seis facturas de ejemplo de empresas ficticias, usadas para ilustrar un posible caso de negocio. |
+| [`aplicativo/`](aplicativo/) | Aplicación web de gestión de facturas (React + Vite + Tailwind) con backend simulado. Ver su [README](aplicativo/README.md). |
 
 ## Resumen
 

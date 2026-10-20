@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+/* Paleta: papel cálido + verde contable + ámbar para lo pendiente */
+@theme {
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-papel: #f6f3ec;
+  --color-papel-2: #efeadf;
+  --color-tinta: #1d2420;
+  --color-tinta-2: #4a524d;
+  --color-tinta-3: #7c847f;
+  --color-linea: #ddd6c8;
+
+  --color-pino: #0f5c4d;
+  --color-pino-2: #157a66;
+  --color-pino-claro: #dcebe5;
+
+  --color-ambar: #b7791f;
+  --color-ambar-claro: #f8ecd4;
+  --color-teja: #b4442f;
+  --color-teja-claro: #f6e0da;
+  --color-cielo: #2f6690;
+  --color-cielo-claro: #dde9f2;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  background: var(--color-papel);
+  color: var(--color-tinta);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Números tabulares para que los montos queden alineados */
+.monto {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+.tarjeta {
+  background: #fffdf8;
+  border: 1px solid var(--color-linea);
+  border-radius: 14px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 10px;
+  padding: 0.55rem 1rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background 0.15s, transform 0.05s, opacity 0.15s;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.btn-primario {
+  background: var(--color-pino);
+  color: var(--color-papel);
+}
+.btn-primario:hover:not(:disabled) {
+  background: var(--color-pino-2);
+}
+.btn-secundario {
+  background: transparent;
+  border: 1px solid var(--color-linea);
+  color: var(--color-tinta);
+}
+.btn-secundario:hover:not(:disabled) {
+  background: var(--color-papel-2);
+}
+.btn-peligro {
+  background: var(--color-teja);
+  color: #fff;
+}
+
+.campo {
+  width: 100%;
+  border: 1px solid var(--color-linea);
+  border-radius: 10px;
+  padding: 0.6rem 0.8rem;
+  background: #fffdf8;
+  font-size: 0.95rem;
+}
+.campo:focus {
+  outline: 2px solid var(--color-pino-claro);
+  border-color: var(--color-pino);
+}
+
+@keyframes pulso {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+.punto-carga span {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin: 0 2px;
+  border-radius: 999px;
+  background: currentColor;
+  animation: pulso 1s infinite;
+}
+.punto-carga span:nth-child(2) { animation-delay: 0.15s; }
+.punto-carga span:nth-child(3) { animation-delay: 0.3s; }
